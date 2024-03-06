@@ -1,0 +1,7 @@
+bgm_monitoring.settings:
+  path: '/admin/config/system/settings'
+  defaults:
+    _title: 'Monitoring'
+    _form: 'Drupal\bgm_monitoring\Form\Settings'
+  requirements:
+    _permission: 'administer site configuration'

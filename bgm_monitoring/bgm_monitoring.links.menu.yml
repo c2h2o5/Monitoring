@@ -1,0 +1,5 @@
+bgm_monitoring.settings:
+  title: Monitoring
+  parent: system.admin_config_system
+  route_name: bgm_monitoring.settings
+  weight: 10

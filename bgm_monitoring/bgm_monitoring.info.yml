@@ -1,0 +1,8 @@
+name: 'BGM Monitoring'
+type: module
+description: 'Provide functionality to notify the admins on alers, errors, critical, warnings in drupal'
+package: BGM
+core_version_requirement: ^10
+dependencies:
+  - drupal:user
+  - symfony_mailer:symfony_mailer

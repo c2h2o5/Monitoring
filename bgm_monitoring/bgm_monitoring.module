@@ -1,0 +1,39 @@
+<?php declare(strict_types = 1);
+
+use \Drupal\Component\Utility\DiffArray;
+
+/**
+ * @file
+ * Primary module hooks for BGM Monitoring module.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function bgm_monitoring_cron(): void {
+  $monitoring = \Drupal::service('bgm.monitorins.notifyer');
+  $monitoring->setMsgLength = 150;
+
+  $state = \Drupal::state();
+  $currentCheck = $monitoring->getDogs();
+  $lastCheck = $state->get('lastMonitoringCheck', NULL);
+  if (!$lastCheck) {
+    $state->set('lastMonitoringCheck', $currentCheck);
+  }
+
+  $differences = DiffArray::diffAssocRecursive($currentCheck, $lastCheck ?? []);
+  if ($differences) {
+    $mailFactory = \Drupal::service('email_factory');
+    $mailFactory->sendTypedEmail('bgm_monitoring', 'notify_on_error', $differences);
+  }
+}
+
+/**
+ * @implements hook_preprocess_email_wrap()
+ * @param array $variables
+ *
+ * @return void
+ */
+function bgm_monitoring_preprocess_email_wrap(array &$variables)
+{
+}

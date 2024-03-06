@@ -1,0 +1,4 @@
+services:
+  bgm.monitorins.notifyer:
+    class: Drupal\bgm_monitoring\MonitoringService
+    arguments: ['@database', '@config.factory']
